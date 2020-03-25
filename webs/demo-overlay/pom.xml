@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chengql</groupId>
+		<artifactId>webs</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>demo-overlay</artifactId>
+	<name>demo-overlay</name>
+	<packaging>war</packaging>
+	<description>demo-overlay</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.chengql</groupId>
+			<artifactId>demo_war_project</artifactId>
+			<version>1.0.0</version>
+			<type>war</type>
+			<!--打包时候排除 -->
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>demo-overlay</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<overlays>
+						<overlay>
+							<groupId>com.chengql</groupId>
+							<artifactId>demo_war_project</artifactId>
+							<excludes>
+								<exclude>**/application.properties</exclude>
+								<exclude>**/logback.xml</exclude>
+								<exclude>**/webdefault.xml</exclude>
+								<exclude>**/web.xml</exclude>
+								<exclude>**/DemoApplication.java</exclude>
+							</excludes>
+						</overlay>
+					</overlays>
+					<dependentWarExcludes>*.properties,logback.xml,**/css</dependentWarExcludes>
+					<dependentWarIncludes>**/IncludeME,**/images</dependentWarIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+
+
+
+</project>
